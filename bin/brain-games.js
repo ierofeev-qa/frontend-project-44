@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import askForAName from '../src/cli.js';
-import { welcomeMessage } from '../src/utils.js';
+import brainGames from '../src/games/brain-games-game.js';
 
-welcomeMessage();
-askForAName();
+brainGames()

@@ -1,13 +1,21 @@
-function welcomeMessage() {
-  console.log('Welcome to the Brain Games!');
+const printMessage = (message) => {
+  console.log(message);
 }
 
-function isEven(number) {
-  return number % 2 === 0;
+const greeting = (name) => {
+  console.log(`Hello, ${name}!`);
 }
 
-function getRandomNumber(max) {
+const getRandomNumber = (max) => {
   return Math.floor(Math.random() * max);
 }
 
-export { welcomeMessage, isEven, getRandomNumber };
+const askIfEven = (number) => {
+  console.log(`Question: ${number.toString()}`)
+}
+
+const isEven = (number) => {
+  return number % 2 === 0;
+}
+
+export { printMessage, greeting, isEven, getRandomNumber, askIfEven };
