@@ -57,7 +57,9 @@ const getGcd = (numbersStr) => {
   return gcd(numbers[0], numbers[1]);
 };
 
-const playGame = (playerName, startPhrase, quizGenerator, correctAnswerFn) => {
+const playGame = (startPhrase, quizGenerator, correctAnswerFn) => {
+  const playerName = greeting();
+
   for (let counter = 0; counter < 3; counter += 1) {
     const quiz = quizGenerator().toString();
     questionString(quiz);
