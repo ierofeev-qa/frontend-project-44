@@ -102,6 +102,7 @@ const runGame = (startPhrase, gameData) => {
 
   for (let counter = 0; counter < 3; counter += 1) {
     const quizData = gameData();
+    console.log(startPhrase);
     console.log(`Question: ${quizData.question.toString()}`);
     const rightAnswer = quizData.correctResult.toString();
     const userAnswer = askQuestion('Your answer: ');
