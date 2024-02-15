@@ -4,8 +4,12 @@ const printMessage = (message) => {
   console.log(message);
 };
 
-const greeting = (name) => {
+const greeting = () => {
+  printMessage('Welcome to the Brain Games!');
+
+  const name = askQuestion('May I have your name? ');
   console.log(`Hello, ${name}!`);
+  return name;
 };
 
 const getRandomNumber = () => Math.floor(Math.random() * 100);

@@ -1,14 +1,9 @@
-import askQuestion from '../cli.js';
 import {
- greeting, printMessage, playGame, calculateResult, generateOperation,
+  greeting, playGame, calculateResult, generateOperation,
 } from '../utils.js';
 
 const brainCalc = () => {
-  printMessage('Welcome to the Brain Games!');
-
-  const name = askQuestion('May I have your name? ');
-  greeting(name);
-
+  const name = greeting();
   playGame(name, 'What is the result of the expression?', generateOperation, calculateResult);
 };
 
