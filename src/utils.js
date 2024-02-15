@@ -10,6 +10,13 @@ const greeting = () => {
 
 const getRandomNumber = () => Math.floor(Math.random() * 100);
 
+const gcd = (a, b) => {
+  if (b) {
+    return gcd(b, a % b);
+  }
+  return Math.abs(a);
+};
+
 const evenGameData = () => {
   const number = getRandomNumber();
   return {
@@ -49,13 +56,6 @@ const gcdGameData = () => {
   const firstNumber = getRandomNumber();
   const secondNumber = getRandomNumber();
 
-  function gcd(a, b) {
-    if (b) {
-      return gcd(b, a % b);
-    }
-    return Math.abs(a);
-  }
-
   return {
     question: `${firstNumber} ${secondNumber}`,
     correctResult: gcd(firstNumber, secondNumber),
@@ -78,6 +78,21 @@ const progressionGameData = () => {
 
   return {
     question: progression.join(' '),
+    correctResult,
+  };
+};
+
+const primeGameData = () => {
+  const number = getRandomNumber();
+  let correctResult;
+
+  for (let i = 2; i <= number; i += 1) {
+    if (number % i === 0 || number < 2) correctResult = 'no';
+    else correctResult = 'yes';
+  }
+
+  return {
+    question: number,
     correctResult,
   };
 };
@@ -108,5 +123,6 @@ export {
   calcGameData,
   gcdGameData,
   progressionGameData,
+  primeGameData,
   runGame,
 };
