@@ -1,9 +1,9 @@
 import askQuestion from '../cli.js';
 import { printMessage, greeting } from '../utils.js';
 
-const brainGames= () => {
+const brainGames = () => {
   printMessage('Welcome to the Brain Games!');
-  const name = askQuestion('May I have your name? ')
+  const name = askQuestion('May I have your name? ');
   greeting(name);
 };
 
