@@ -15,6 +15,8 @@ const generateOperation = () => {
   return `${getRandomNumber()} ${operators[Math.floor(Math.random() * operators.length)]} ${getRandomNumber()}`;
 };
 
+const generateGcdQuizNumbers = () => `${getRandomNumber()} ${getRandomNumber()}`;
+
 const questionString = (question) => {
   console.log(`Question: ${question.toString()}`);
 };
@@ -29,26 +31,38 @@ const calculateResult = (operation) => {
 
   switch (operator) {
     case '+':
-      return (firstNumber + secondNumber).toString();
+      return firstNumber + secondNumber;
     case '-':
-      return (firstNumber - secondNumber).toString();
+      return firstNumber - secondNumber;
     case '*':
-      return (firstNumber * secondNumber).toString();
+      return firstNumber * secondNumber;
     default:
-      return (firstNumber + secondNumber).toString();
+      return undefined;
   }
+};
+
+const getGcd = (numbersStr) => {
+  const numbers = numbersStr.split(' ');
+  function gcd(a, b) {
+    if (b) {
+      return gcd(b, a % b);
+    }
+    return Math.abs(a);
+  }
+
+  return gcd(numbers[0], numbers[1]);
 };
 
 const playGame = (playerName, startPhrase, quizGenerator, correctAnswerFn) => {
   for (let counter = 0; counter < 3; counter += 1) {
-    const number = quizGenerator().toString();
-    questionString(number);
-    const rightAnswer = correctAnswerFn(number);
-    const answer = askQuestion('Your answer: ');
-    if (answer.toString() === rightAnswer) {
+    const quiz = quizGenerator().toString();
+    questionString(quiz);
+    const rightAnswer = correctAnswerFn(quiz).toString();
+    const userAnswer = askQuestion('Your answer: ');
+    if (userAnswer.toString() === rightAnswer) {
       printMessage('Correct!');
     } else {
-      printMessage(`'${answer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
+      printMessage(`'${userAnswer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
       printMessage(`Let's try again, ${playerName}!`);
       return;
     }
@@ -65,4 +79,6 @@ export {
   playGame,
   generateOperation,
   calculateResult,
+  generateGcdQuizNumbers,
+  getGcd,
 };
