@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import brainEven from '../src/games/brain-even-game.js';
+import { evenGameData, runGame } from '../src/utils.js';
 
-brainEven();
+runGame('Answer "yes" if the number is even, otherwise answer "no".', evenGameData);

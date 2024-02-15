@@ -1,11 +1,7 @@
 import askQuestion from './cli.js';
 
-const printMessage = (message) => {
-  console.log(message);
-};
-
 const greeting = () => {
-  printMessage('Welcome to the Brain Games!');
+  console.log('Welcome to the Brain Games!');
 
   const name = askQuestion('May I have your name? ');
   console.log(`Hello, ${name}!`);
@@ -14,39 +10,45 @@ const greeting = () => {
 
 const getRandomNumber = () => Math.floor(Math.random() * 100);
 
-const generateOperation = () => {
+const evenGameData = () => {
+  const number = getRandomNumber();
+  return {
+    question: number,
+    correctResult: number % 2 === 0 ? 'yes' : 'no',
+  };
+};
+
+const calcGameData = () => {
   const operators = ['+', '-', '*'];
-  return `${getRandomNumber()} ${operators[Math.floor(Math.random() * operators.length)]} ${getRandomNumber()}`;
-};
+  const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+  const firstNumber = getRandomNumber();
+  const secondNumber = getRandomNumber();
+  let correctResult;
 
-const generateGcdQuizNumbers = () => `${getRandomNumber()} ${getRandomNumber()}`;
-
-const questionString = (question) => {
-  console.log(`Question: ${question.toString()}`);
-};
-
-const isEven = (number) => (number % 2 === 0 ? 'yes' : 'no');
-
-const calculateResult = (operation) => {
-  const operands = operation.split(' ');
-  const firstNumber = Number(operands[0]);
-  const secondNumber = Number(operands[2]);
-  const operator = operands[1];
-
-  switch (operator) {
+  switch (randomOperator) {
     case '+':
-      return firstNumber + secondNumber;
+      correctResult = firstNumber + secondNumber;
+      break;
     case '-':
-      return firstNumber - secondNumber;
+      correctResult = firstNumber - secondNumber;
+      break;
     case '*':
-      return firstNumber * secondNumber;
+      correctResult = firstNumber * secondNumber;
+      break;
     default:
-      return undefined;
+      correctResult = undefined;
   }
+
+  return {
+    question: `${firstNumber} ${randomOperator} ${secondNumber}`,
+    correctResult,
+  };
 };
 
-const getGcd = (numbersStr) => {
-  const numbers = numbersStr.split(' ');
+const gcdGameData = () => {
+  const firstNumber = getRandomNumber();
+  const secondNumber = getRandomNumber();
+
   function gcd(a, b) {
     if (b) {
       return gcd(b, a % b);
@@ -54,37 +56,57 @@ const getGcd = (numbersStr) => {
     return Math.abs(a);
   }
 
-  return gcd(numbers[0], numbers[1]);
+  return {
+    question: `${firstNumber} ${secondNumber}`,
+    correctResult: gcd(firstNumber, secondNumber),
+  };
 };
 
-const playGame = (startPhrase, quizGenerator, correctAnswerFn) => {
+const progressionGameData = () => {
+  let randomNumber = getRandomNumber();
+  const step = getRandomNumber();
+  const progression = [];
+
+  for (let counter = 0; counter < 10; counter += 1) {
+    progression.push(randomNumber);
+    randomNumber += step;
+  }
+
+  const randomIndex = Math.floor(Math.random() * progression.length);
+  const correctResult = progression[randomIndex];
+  progression[randomIndex] = '..';
+
+  return {
+    question: progression.join(' '),
+    correctResult,
+  };
+};
+
+const runGame = (startPhrase, gameData) => {
   const playerName = greeting();
 
   for (let counter = 0; counter < 3; counter += 1) {
-    const quiz = quizGenerator().toString();
-    questionString(quiz);
-    const rightAnswer = correctAnswerFn(quiz).toString();
+    const quizData = gameData();
+    console.log(`Question: ${quizData.question.toString()}`);
+    const rightAnswer = quizData.correctResult.toString();
     const userAnswer = askQuestion('Your answer: ');
     if (userAnswer.toString() === rightAnswer) {
-      printMessage('Correct!');
+      console.log('Correct!');
     } else {
-      printMessage(`'${userAnswer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
-      printMessage(`Let's try again, ${playerName}!`);
+      console.log(`'${userAnswer}' is wrong answer ;(. Correct answer was '${rightAnswer}'.`);
+      console.log(`Let's try again, ${playerName}!`);
       return;
     }
   }
-  printMessage(`Congratulations, ${playerName}!`);
+  console.log(`Congratulations, ${playerName}!`);
 };
 
 export {
-  printMessage,
   greeting,
-  isEven,
   getRandomNumber,
-  questionString,
-  playGame,
-  generateOperation,
-  calculateResult,
-  generateGcdQuizNumbers,
-  getGcd,
+  evenGameData,
+  calcGameData,
+  gcdGameData,
+  progressionGameData,
+  runGame,
 };

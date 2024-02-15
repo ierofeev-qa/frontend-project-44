@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import brainCalc from '../src/games/brain-calc-game.js';
+import { calcGameData, runGame } from '../src/utils.js';
 
-brainCalc();
+runGame('What is the result of the expression?', calcGameData);
