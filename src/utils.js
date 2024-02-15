@@ -86,9 +86,9 @@ const primeGameData = () => {
   const number = getRandomNumber();
   let correctResult;
 
-  for (let i = 2; i <= number; i += 1) {
-    if (number % i === 0 || number < 2) correctResult = 'no';
-    else correctResult = 'yes';
+  for (let i = 2; i < number; i += 1) {
+    if (number % i === 0 || number < 2) correctResult = 'yes';
+    else correctResult = 'no';
   }
 
   return {
